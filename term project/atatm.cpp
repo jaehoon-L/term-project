@@ -2,7 +2,7 @@
 using namespace std;
 
 /* 손수 UI 구성 */
-//왓에버잇테잌스
+//sugeonghaeburrim~
 class ATM;
 class Bank;
 class User;

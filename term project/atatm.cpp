@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-/* ¼Õ¼ö UI ±¸¼º */
-
+/* ì†ìˆ˜ UI êµ¬ì„± */
+//ì™“ì—ë²„ì‡í…ŒìŒìŠ¤
 class ATM;
 class Bank;
 class User;
@@ -14,10 +14,10 @@ class Admin;
 
 class Card {
 private:
-    int acc_num; // °èÁÂ¹øÈ£
-    Bank* card_bank; // Ä«µå ÀºÇà
-    int card_num; // Ä«µå ¹øÈ£
-    string user_name; // Ä«µå »ç¿ëÀÚ ÀÌ¸§
+    int acc_num; // ê³„ì¢Œë²ˆí˜¸
+    Bank* card_bank; // ì¹´ë“œ ì€í–‰
+    int card_num; // ì¹´ë“œ ë²ˆí˜¸
+    string user_name; // ì¹´ë“œ ì‚¬ìš©ì ì´ë¦„
 public:
     Card() {};
     Card(int account_num, Bank* bank, int card_number) {
@@ -32,15 +32,15 @@ public:
 
 class Bank {
 private:
-    string bank_name; // ÀºÇà ÀÌ¸§
-    Account* account_lst[100]; // ÀºÇà º¸À¯ °èÁÂ ¸ñ·Ï
-    int numOfuser = 0; // user acount °³¼ö
+    string bank_name; // ì€í–‰ ì´ë¦„
+    Account* account_lst[100]; // ì€í–‰ ë³´ìœ  ê³„ì¢Œ ëª©ë¡
+    int numOfuser = 0; // user acount ê°œìˆ˜
 public:
     Bank() {};
     Bank(string bname) { bank_name = bname; };
-    string get_bank_name() { return bank_name; }; // ¹ğÅ© ÀÌ¸§ ¹İÈ¯
-    void add_accountlst(Account* new_account) { account_lst[numOfuser++] = new_account; }; // °èÁÂ »ı¼º½Ã Ãß°¡
-    Account* find_account(int account_num) { // °èÁÂ ¹øÈ£¿¡ ¸Â´Â °èÁÂ ¹İÈ¯
+    string get_bank_name() { return bank_name; }; // ë±…í¬ ì´ë¦„ ë°˜í™˜
+    void add_accountlst(Account* new_account) { account_lst[numOfuser++] = new_account; }; // ê³„ì¢Œ ìƒì„±ì‹œ ì¶”ê°€
+    Account* find_account(int account_num) { // ê³„ì¢Œ ë²ˆí˜¸ì— ë§ëŠ” ê³„ì¢Œ ë°˜í™˜
         for (int i = 0; i < numOfuser; i++) {
             if (account_lst[i]->get_accountnum() == account_num) {
                 return account_lst[i];
@@ -52,39 +52,39 @@ public:
 
 class Account {
 private:
-    Bank* bank; // °èÁÂ¿¡ ¿¬µ¿µÈ ÀºÇà
-    int acc_num; // °èÁÂ¹øÈ£ 12ÀÚ¸®
-    int password; // ºñ¹Ğ¹øÈ£
-    int Acash; // °èÁÂº¸À¯±İ
+    Bank* bank; // ê³„ì¢Œì— ì—°ë™ëœ ì€í–‰
+    int acc_num; // ê³„ì¢Œë²ˆí˜¸ 12ìë¦¬
+    int password; // ë¹„ë°€ë²ˆí˜¸
+    int Acash; // ê³„ì¢Œë³´ìœ ê¸ˆ
 public:
-    Account() {}; //°èÁÂ¼³Á¤
+    Account() {}; //ê³„ì¢Œì„¤ì •
     Account(Bank* bname, int anum, int pw, int ac) {
         bank = bname;
         acc_num = anum;
         password = pw;
         Acash = ac;
-    }; // °èÁÂ ÃÊ±â ¼³Á¤
-    void update_cash(int inoutcash) { Acash += inoutcash; }; // °èÁÂº¸À¯±İ º¯°æ
-    int get_password() { return password; }; // ºñ¹Ğ¹øÈ£ ¹İÈ¯
-    Bank* get_bank() { return bank; }; // ÀºÇà ¹İÈ¯
-    int get_accountnum() { return acc_num; }; //°èÁÂ¹øÈ£ ¹İÈ¯
-    int get_cash() { return Acash; }; //³²Àº Çö±İ ¹İÈ¯
+    }; // ê³„ì¢Œ ì´ˆê¸° ì„¤ì •
+    void update_cash(int inoutcash) { Acash += inoutcash; }; // ê³„ì¢Œë³´ìœ ê¸ˆ ë³€ê²½
+    int get_password() { return password; }; // ë¹„ë°€ë²ˆí˜¸ ë°˜í™˜
+    Bank* get_bank() { return bank; }; // ì€í–‰ ë°˜í™˜
+    int get_accountnum() { return acc_num; }; //ê³„ì¢Œë²ˆí˜¸ ë°˜í™˜
+    int get_cash() { return Acash; }; //ë‚¨ì€ í˜„ê¸ˆ ë°˜í™˜
 };
 
-class ATM { // Unilingual Multi Bank ±âÁØ
+class ATM { // Unilingual Multi Bank ê¸°ì¤€
 private:
-    Bank* main_bank; // ÁÖ ÀºÇà ¼³Á¤
-    int ATM_serial; // °íÀ¯ ³Ñ¹ö 6ÀÚ¸®
-    string ATM_type; // ´ÜÀÏ ÀºÇà°ú ´ÙÁß ÀºÇàÀ¸·Î ±¸ºĞ. ´ÜÀÏ ÀºÇàÀº ÁÖ ÀºÇà Ä«µå¸¸ ¹ŞÀ½
-    string lang_type; // ´ÜÀÏ ¾ğ¾î, ÀÌÁß ¾ğ¾î(ÇÑ¿µ)
-    int cash_1000; // ATM 1000¿øÂ¥¸® Çö±İ
-    int cash_5000; // ATM 5000¿øÂ¥¸® Çö±İ
-    int cash_10000; // ATM 10000¿øÂ¥¸® Çö±İ
-    int cash_50000; // ATM 50000¿øÂ¥¸® Çö±İ
-    Bank* Blist; // Bank ¸®½ºÆ® input
+    Bank* main_bank; // ì£¼ ì€í–‰ ì„¤ì •
+    int ATM_serial; // ê³ ìœ  ë„˜ë²„ 6ìë¦¬
+    string ATM_type; // ë‹¨ì¼ ì€í–‰ê³¼ ë‹¤ì¤‘ ì€í–‰ìœ¼ë¡œ êµ¬ë¶„. ë‹¨ì¼ ì€í–‰ì€ ì£¼ ì€í–‰ ì¹´ë“œë§Œ ë°›ìŒ
+    string lang_type; // ë‹¨ì¼ ì–¸ì–´, ì´ì¤‘ ì–¸ì–´(í•œì˜)
+    int cash_1000; // ATM 1000ì›ì§œë¦¬ í˜„ê¸ˆ
+    int cash_5000; // ATM 5000ì›ì§œë¦¬ í˜„ê¸ˆ
+    int cash_10000; // ATM 10000ì›ì§œë¦¬ í˜„ê¸ˆ
+    int cash_50000; // ATM 50000ì›ì§œë¦¬ í˜„ê¸ˆ
+    Bank* Blist; // Bank ë¦¬ìŠ¤íŠ¸ input
     string session;
 public:
-    ATM() {}; // µğÆúÆ®°ª ¼³Á¤
+    ATM() {}; // ë””í´íŠ¸ê°’ ì„¤ì •
     ATM(Bank* mbank, int sernum, string type, string lang, int num_1000, int num_5000, int num_10000, int num_50000, Bank* Blist) {
         main_bank = mbank;
         ATM_serial = sernum;
@@ -94,12 +94,12 @@ public:
         cash_5000 = num_5000;
         cash_10000 = num_10000;
         cash_50000 = num_50000;
-    }; // ATM ÃÊ±â ¼³Á¤
-    Bank* get_ATMBank() { return main_bank; } // ATMÀÇ primiary bank ¹İÈ¯
-    int get_serial() { return ATM_serial; } // ATMÀÇ ÀÏ·Ã¹øÈ£ ¹İÈ¯
-    string get_ATM_type() { return ATM_type; } // ATMÀÇ type ¹İÈ¯ (Multi or Single)
-    string get_lang_type() { return lang_type; } // ATMÀÇ language type ¹İÈ¯ (Unilingual or Bilingual)
-    void start_ATM(Card* card) { // ATM ½ÃÀÛÈ­¸é
+    }; // ATM ì´ˆê¸° ì„¤ì •
+    Bank* get_ATMBank() { return main_bank; } // ATMì˜ primiary bank ë°˜í™˜
+    int get_serial() { return ATM_serial; } // ATMì˜ ì¼ë ¨ë²ˆí˜¸ ë°˜í™˜
+    string get_ATM_type() { return ATM_type; } // ATMì˜ type ë°˜í™˜ (Multi or Single)
+    string get_lang_type() { return lang_type; } // ATMì˜ language type ë°˜í™˜ (Unilingual or Bilingual)
+    void start_ATM(Card* card) { // ATM ì‹œì‘í™”ë©´
         cout << "Insert the Card" << endl;
         if (this->get_ATM_type() == "Single" && this->get_ATMBank() != card->get_CardBank()) {
             cout << "Invalid Card" << endl;
@@ -110,12 +110,12 @@ public:
             return;
         }
     };
-    int get_acc_password(Card* card) { //°èÁÂ ºñ¹Ğ¹øÈ£ ¹İÈ¯
+    int get_acc_password(Card* card) { //ê³„ì¢Œ ë¹„ë°€ë²ˆí˜¸ ë°˜í™˜
         int password;
         password = card->get_CardBank()->find_account(card->get_card_serial())->get_password();
         return password;
     }
-    void enter_password(Card* card) { // ºñ¹Ğ¹øÈ£ ÀÔ·Â È­¸é
+    void enter_password(Card* card) { // ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ í™”ë©´
         int password;
         int wrong_time = 0;
         cout << "Enter the password: ";
@@ -166,7 +166,7 @@ public:
             cout << "Invalid number" << endl;
         }
     }
-    void deposit(Account* acc) { // ¿¹±İ ¹æ¹ı ¼±ÅÃ
+    void deposit(Account* acc) { // ì˜ˆê¸ˆ ë°©ë²• ì„ íƒ
         cout << "1. Cash" << endl;
         cout << "2. Check" << endl;
         cout << "3. Quit" << endl;
@@ -233,11 +233,11 @@ public:
         int caash = 0;
         cin >> caash;
         if (caash < 1000) {
-            cout << "¿Ï·á È­¸é" << endl;
+            cout << "ì™„ë£Œ í™”ë©´" << endl;
         }
-    }; // Ãâ±İ
-    void transfer(int cash, string bank_name, int account_num) {}; // ¼Û±İ, ¸Â´Â °èÁÂ·Î µ·À» ¼Û±İ. ¾Æ´Ï¸é ¹®±¸ ³»°í ending ui
-    int chek_fee(int cash, int type) {}; //¼ö¼ö·á °è»ê, ¿¹±İ Ãâ±İ ¼Û±İ½Ã ¾Ë¸ÂÀº ¼ö¼ö·á °è»ê ½ÇÇà
+    }; // ì¶œê¸ˆ
+    void transfer(int cash, string bank_name, int account_num) {}; // ì†¡ê¸ˆ, ë§ëŠ” ê³„ì¢Œë¡œ ëˆì„ ì†¡ê¸ˆ. ì•„ë‹ˆë©´ ë¬¸êµ¬ ë‚´ê³  ending ui
+    int chek_fee(int cash, int type) {}; //ìˆ˜ìˆ˜ë£Œ ê³„ì‚°, ì˜ˆê¸ˆ ì¶œê¸ˆ ì†¡ê¸ˆì‹œ ì•Œë§ì€ ìˆ˜ìˆ˜ë£Œ ê³„ì‚° ì‹¤í–‰
     void update_session(string history) {
         session += history;
         session += "\n"
@@ -246,8 +246,8 @@ public:
 
 class User {
 private:
-    string user_name; // »ç¿ëÀÚ ÀÌ¸§
-    Account* Uaccount_lst[100]; // »ç¿ëÀÚÀÇ °èÁÂ ¸ñ·Ï
+    string user_name; // ì‚¬ìš©ì ì´ë¦„
+    Account* Uaccount_lst[100]; // ì‚¬ìš©ìì˜ ê³„ì¢Œ ëª©ë¡
 public:
     User() {};
     User(string uname, Account* ulst) {};
@@ -255,16 +255,16 @@ public:
 
 class Session {
 private:
-    static int identifier; // °Å·¡ ½Äº°ÀÚ
-    string breakdown; // °Å·¡ ³»¿ª
+    static int identifier; // ê±°ë˜ ì‹ë³„ì
+    string breakdown; // ê±°ë˜ ë‚´ì—­
 public:
     Session() {};
-    Session(int idf) {}; // ½Äº°ÀÚ°¡ ´ã±ä Session»ı¼º
+    Session(int idf) {}; // ì‹ë³„ìê°€ ë‹´ê¸´ Sessionìƒì„±
     void updateTransaction(string BD) {
         breakdown += BD;
         breakdown += "\n";
-    }; // °Å·¡³»¿ª ¾÷µ¥ÀÌÆ®
-    void end_Session() {}; // ¼¼¼Ç Á¾·á, ÀÔ·ÂÀÌ³ª ¿¹¿Ü »óÈ²¿¡ µû¶ó end_Session ½ÇÇà
+    }; // ê±°ë˜ë‚´ì—­ ì—…ë°ì´íŠ¸
+    void end_Session() {}; // ì„¸ì…˜ ì¢…ë£Œ, ì…ë ¥ì´ë‚˜ ì˜ˆì™¸ ìƒí™©ì— ë”°ë¼ end_Session ì‹¤í–‰
     ~Session() {};
 };
 
@@ -277,10 +277,10 @@ private:
     int error_num;
     Session* now_Session;
 public:
-    UI() {}; // Ã³À½ ¼³Á¤
-    UI(string lang) {}; // ¾ğ¾î ¼³Á¤
+    UI() {}; // ì²˜ìŒ ì„¤ì •
+    UI(string lang) {}; // ì–¸ì–´ ì„¤ì •
 
-    /* ³¡³ª´Â ÄÉÀÌ½º¿£ ¿£µù ÇÔ¼ö Ãâ·Â*/
+    /* ëë‚˜ëŠ” ì¼€ì´ìŠ¤ì—” ì—”ë”© í•¨ìˆ˜ ì¶œë ¥*/
 
     void start_ui(ATM* atm, Card* card) {
         if (atm->get_ATM_type() == "Multi" && atm->get_ATMBank() != card->get_CardBank()) {
@@ -296,21 +296,21 @@ public:
             return;
         }
         input_password();
-    }; // ÃÊ±âÈ­¸é ui ¼³Á¤, atm Á¾·ùµµ ¹ŞÀ½, new session »ı¼ºÇÏ°í ÀÌ°ÍÀ» now_SessionÀ¸·Î ÁöÁ¤
-    void set_lang() {}; // atm_type¿¡ ¸Â´Â ¾ğ¾î ½ÇÇà. ´ÙÁß¾ğ¾îÀÎ °æ¿ì ¼±ÅÃÁö¸¦ ¼±ÅÃÇÒ ¼ö ÀÖ°Ô ¼³Á¤
-    void input_card() {}; // Ä«µå ÀÔ·Â½Ã output Ãâ·Â
+    }; // ì´ˆê¸°í™”ë©´ ui ì„¤ì •, atm ì¢…ë¥˜ë„ ë°›ìŒ, new session ìƒì„±í•˜ê³  ì´ê²ƒì„ now_Sessionìœ¼ë¡œ ì§€ì •
+    void set_lang() {}; // atm_typeì— ë§ëŠ” ì–¸ì–´ ì‹¤í–‰. ë‹¤ì¤‘ì–¸ì–´ì¸ ê²½ìš° ì„ íƒì§€ë¥¼ ì„ íƒí•  ìˆ˜ ìˆê²Œ ì„¤ì •
+    void input_card() {}; // ì¹´ë“œ ì…ë ¥ì‹œ output ì¶œë ¥
     void input_password() {
         int password;
         cin >> password;
         if (password == card->get_CardBank()->)
-    }; // ºñ¹Ğ¹øÈ£¸¦ ÀÔ·Â¹Ş´Â ÇÔ¼ö
-    void main_stage() {}; // ¼±ÅÃÁö¸¦ ÁÖ´Â UI
-    void deposit() {}; // ¿¹±İ¿¡ ÇÊ¿äÇÑ µ·À» ÀÔ·Â¹ŞÀ½, ¼öÇ¥ÀÎÁö ¾Æ´ÑÁö
-    void withdrawal() {}; // Ãâ±İ¿¡ ÇÊ¿äÇÑ µ·À» ÀÔ·Â¹ŞÀ½, ¼öÇ¥ÀÎÁö ¾Æ´ÑÁö
-    void transfer() {}; // ¼Û±İ¿¡ ÇÊ¿äÇÑ µ·À» ÀÔ·Â¹ŞÀ½
-    void error_password() {}; // ºñ¹ø¿¡·¯
-    void admin_statement() {}; // admincard ÀÔ·Â½Ã Ãâ·ÂÃ¢
-    void ending() {}; // ¸¶¹«¸® Ãâ·Â, ¼¼¼ÇÀ» Á¾·áÇÏ°í adminsession¿¡ Ãß°¡
+    }; // ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥ë°›ëŠ” í•¨ìˆ˜
+    void main_stage() {}; // ì„ íƒì§€ë¥¼ ì£¼ëŠ” UI
+    void deposit() {}; // ì˜ˆê¸ˆì— í•„ìš”í•œ ëˆì„ ì…ë ¥ë°›ìŒ, ìˆ˜í‘œì¸ì§€ ì•„ë‹Œì§€
+    void withdrawal() {}; // ì¶œê¸ˆì— í•„ìš”í•œ ëˆì„ ì…ë ¥ë°›ìŒ, ìˆ˜í‘œì¸ì§€ ì•„ë‹Œì§€
+    void transfer() {}; // ì†¡ê¸ˆì— í•„ìš”í•œ ëˆì„ ì…ë ¥ë°›ìŒ
+    void error_password() {}; // ë¹„ë²ˆì—ëŸ¬
+    void admin_statement() {}; // admincard ì…ë ¥ì‹œ ì¶œë ¥ì°½
+    void ending() {}; // ë§ˆë¬´ë¦¬ ì¶œë ¥, ì„¸ì…˜ì„ ì¢…ë£Œí•˜ê³  adminsessionì— ì¶”ê°€
 };
 
 

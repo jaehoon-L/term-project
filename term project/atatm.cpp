@@ -86,7 +86,7 @@ public:
     }
 };
 
-class ATM { // Unilingual Multi Bank 기준
+class ATM {
 private:
     Bank* main_bank; // 주 은행 설정
     int ATM_serial; // 고유 넘버 6자리
@@ -124,7 +124,12 @@ public:
                     cout << "유효하지 않은 카드" << endl;
                     return;
                 }
-                else {
+
+                else if (card->get_CardBank()->get_bank_name() == "admin") {
+                    cout << "거래 내역 확인 ㄱ?" << endl;
+                    //print_all_sessions();
+                }
+                else if (ATM_type == "Multi" || main_bank == card->get_CardBank()) {
                     enter_password(card);
                     return;
                 }
@@ -139,7 +144,11 @@ public:
                 cout << "Invalid Card" << endl;
                 return;
             }
-            else {
+            else if (card->get_CardBank()->get_bank_name() == "admin") {
+                cout << "transaction history gogo? Yes or No" << endl;
+                //print_all_sessions();
+            }
+            else if (ATM_type == "Multi" || main_bank == card->get_CardBank()) {
                 enter_password(card);
                 return;
             }
@@ -281,10 +290,11 @@ public:
             cash_5000 += num_5000;
             cash_1000 += num_1000;
             acc->update_cash(50000 * num_50000 + 10000 * num_10000 + 5000 * num_5000 + 1000 * num_1000);
+            Trans_History();
             mainstage(acc);
             return;
         }
-        else {
+        else if (main_bank != acc->get_bank()) {
             int deposit_fee;
             cout << "Please insert deposit fee 1000 Won" << endl;
             cout << "1000: ";
@@ -522,6 +532,23 @@ public:
         session += history;
         session += "\n";
     }
+};
+
+class Trans_History {
+private:
+    int trans_id;
+    int cardnumber;
+    int accountnumber;
+    string trans_type;
+    int amount;
+    string etc;
+public:
+    int get_trans_id;
+    int get_cardnumber;
+    int get_accountnumber;
+    string get_trans_type;
+    int get_amount;
+    string get_etc;
 };
 
 vector<Bank*> Bank::bank_list;

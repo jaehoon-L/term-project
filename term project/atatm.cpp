@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-/* ¼Õ¼ö UI ±¸¼º */
+/* ì†ìˆ˜ UI êµ¬ì„± */
 
 class Card;
 class Account;
@@ -12,10 +12,10 @@ class Session;
 
 class Card {
 private:
-    int acc_num; // °èÁÂ¹øÈ£
-    Bank* card_bank; // Ä«µå ÀºÇà
-    int card_num; // Ä«µå ¹øÈ£
-    string user_name; // Ä«µå »ç¿ëÀÚ ÀÌ¸§
+    int acc_num; // ê³„ì¢Œë²ˆí˜¸
+    Bank* card_bank; // ì¹´ë“œ ì€í–‰
+    int card_num; // ì¹´ë“œ ë²ˆí˜¸
+    string user_name; // ì¹´ë“œ ì‚¬ìš©ì ì´ë¦„
 public:
     Card(int account_num, Bank* bank, int card_number, string name) {
         acc_num = account_num;
@@ -31,37 +31,37 @@ public:
 
 class Account {
 private:
-    Bank* bank; // °èÁÂ¿¡ ¿¬µ¿µÈ ÀºÇà
-    int acc_num; // °èÁÂ¹øÈ£ 12ÀÚ¸®
-    int password; // ºñ¹Ğ¹øÈ£
-    int Acash; // °èÁÂº¸À¯±İ
+    Bank* bank; // ê³„ì¢Œì— ì—°ë™ëœ ì€í–‰
+    int acc_num; // ê³„ì¢Œë²ˆí˜¸ 12ìë¦¬
+    int password; // ë¹„ë°€ë²ˆí˜¸
+    int Acash; // ê³„ì¢Œë³´ìœ ê¸ˆ
 public:
     Account(Bank* bname, int anum, int pw, int ac) {
         bank = bname;
         acc_num = anum;
         password = pw;
         Acash = ac;
-    }; // °èÁÂ ÃÊ±â ¼³Á¤
-    void update_cash(int inoutcash) { Acash += inoutcash; }; // °èÁÂº¸À¯±İ º¯°æ
-    int get_password() { return password; }; // ºñ¹Ğ¹øÈ£ ¹İÈ¯
-    Bank* get_bank() { return bank; }; // ÀºÇà ¹İÈ¯
-    int get_accountnum() { return acc_num; }; //°èÁÂ¹øÈ£ ¹İÈ¯
-    int get_cash() { return Acash; }; //³²Àº Çö±İ ¹İÈ¯
+    }; // ê³„ì¢Œ ì´ˆê¸° ì„¤ì •
+    void update_cash(int inoutcash) { Acash += inoutcash; }; // ê³„ì¢Œë³´ìœ ê¸ˆ ë³€ê²½
+    int get_password() { return password; }; // ë¹„ë°€ë²ˆí˜¸ ë°˜í™˜
+    Bank* get_bank() { return bank; }; // ì€í–‰ ë°˜í™˜
+    int get_accountnum() { return acc_num; }; //ê³„ì¢Œë²ˆí˜¸ ë°˜í™˜
+    int get_cash() { return Acash; }; //ë‚¨ì€ í˜„ê¸ˆ ë°˜í™˜
 };
 
 class Bank {
 private:
-    string bank_name; // ÀºÇà ÀÌ¸§
-    vector<Account*> account_lst; // ÀºÇà º¸À¯ °èÁÂ ¸ñ·Ï
-    int numOfuser = 0; // user account °³¼ö
+    string bank_name; // ì€í–‰ ì´ë¦„
+    vector<Account*> account_lst; // ì€í–‰ ë³´ìœ  ê³„ì¢Œ ëª©ë¡
+    int numOfuser = 0; // user account ê°œìˆ˜
     static vector<Bank*> bank_list;
 public:
     Bank(string bname) {
         bank_name = bname;
         bank_list.push_back(this);
     };
-    string get_bank_name() { return bank_name; }; // ¹ğÅ© ÀÌ¸§ ¹İÈ¯
-    void add_accountlst(Account* new_account) { account_lst.push_back(new_account); }; // °èÁÂ »ı¼º½Ã Ãß°¡
+    string get_bank_name() { return bank_name; }; // ë±…í¬ ì´ë¦„ ë°˜í™˜
+    void add_accountlst(Account* new_account) { account_lst.push_back(new_account); }; // ê³„ì¢Œ ìƒì„±ì‹œ ì¶”ê°€
     Account* find_account(int acc_num) {
         vector<Account*>::iterator iter;
         for (iter = account_lst.begin(); iter != account_lst.end(); ++iter) {
@@ -86,16 +86,16 @@ public:
     }
 };
 
-class ATM { // Unilingual Multi Bank ±âÁØ
+class ATM { // Unilingual Multi Bank ê¸°ì¤€
 private:
-    Bank* main_bank; // ÁÖ ÀºÇà ¼³Á¤
-    int ATM_serial; // °íÀ¯ ³Ñ¹ö 6ÀÚ¸®
-    string ATM_type; // ´ÜÀÏ ÀºÇà°ú ´ÙÁß ÀºÇàÀ¸·Î ±¸ºĞ. ´ÜÀÏ ÀºÇàÀº ÁÖ ÀºÇà Ä«µå¸¸ ¹ŞÀ½
-    string lang_type; // ´ÜÀÏ ¾ğ¾î, ÀÌÁß ¾ğ¾î(ÇÑ¿µ)
-    int cash_1000; // ATM 1000¿øÂ¥¸® Çö±İ
-    int cash_5000; // ATM 5000¿øÂ¥¸® Çö±İ
-    int cash_10000; // ATM 10000¿øÂ¥¸® Çö±İ
-    int cash_50000; // ATM 50000¿øÂ¥¸® Çö±İ
+    Bank* main_bank; // ì£¼ ì€í–‰ ì„¤ì •
+    int ATM_serial; // ê³ ìœ  ë„˜ë²„ 6ìë¦¬
+    string ATM_type; // ë‹¨ì¼ ì€í–‰ê³¼ ë‹¤ì¤‘ ì€í–‰ìœ¼ë¡œ êµ¬ë¶„. ë‹¨ì¼ ì€í–‰ì€ ì£¼ ì€í–‰ ì¹´ë“œë§Œ ë°›ìŒ
+    string lang_type; // ë‹¨ì¼ ì–¸ì–´, ì´ì¤‘ ì–¸ì–´(í•œì˜)
+    int cash_1000; // ATM 1000ì›ì§œë¦¬ í˜„ê¸ˆ
+    int cash_5000; // ATM 5000ì›ì§œë¦¬ í˜„ê¸ˆ
+    int cash_10000; // ATM 10000ì›ì§œë¦¬ í˜„ê¸ˆ
+    int cash_50000; // ATM 50000ì›ì§œë¦¬ í˜„ê¸ˆ
     static int withdrawal_num;
     string session;
 public:
@@ -108,20 +108,20 @@ public:
         cash_5000 = num_5000;
         cash_10000 = num_10000;
         cash_50000 = num_50000;
-    }; // ATM ÃÊ±â ¼³Á¤
-    Bank* get_ATMBank() { return main_bank; } // ATMÀÇ primiary bank ¹İÈ¯
-    int get_serial() { return ATM_serial; } // ATMÀÇ ÀÏ·Ã¹øÈ£ ¹İÈ¯
-    string get_ATM_type() { return ATM_type; } // ATMÀÇ type ¹İÈ¯ (Multi or Single)
-    string get_lang_type() { return lang_type; } // ATMÀÇ language type ¹İÈ¯ (Unilingual or Bilingual)
+    }; // ATM ì´ˆê¸° ì„¤ì •
+    Bank* get_ATMBank() { return main_bank; } // ATMì˜ primiary bank ë°˜í™˜
+    int get_serial() { return ATM_serial; } // ATMì˜ ì¼ë ¨ë²ˆí˜¸ ë°˜í™˜
+    string get_ATM_type() { return ATM_type; } // ATMì˜ type ë°˜í™˜ (Multi or Single)
+    string get_lang_type() { return lang_type; } // ATMì˜ language type ë°˜í™˜ (Unilingual or Bilingual)
 
-    void start_ATM(Card* card) { // ATM ½ÃÀÛÈ­¸é
+    void start_ATM(Card* card) { // ATM ì‹œì‘í™”ë©´
         if (lang_type == "Bi") {
             cout << "1. English 2. Korean" << endl;
             cin >> lang_type;
             if (lang_type == "2") {
-                cout << "Ä«µå ³Ö¾î" << endl;
+                cout << "ì¹´ë“œ ë„£ì–´" << endl;
                 if (ATM_type == "Single" && main_bank != card->get_CardBank()) {
-                    cout << "À¯È¿ÇÏÁö ¾ÊÀº Ä«µå" << endl;
+                    cout << "ìœ íš¨í•˜ì§€ ì•Šì€ ì¹´ë“œ" << endl;
                     return;
                 }
                 else {
@@ -145,22 +145,22 @@ public:
             }
         }
     };
-    int get_acc_password(Card* card) { //°èÁÂ ºñ¹Ğ¹øÈ£ ¹İÈ¯
+    int get_acc_password(Card* card) { //ê³„ì¢Œ ë¹„ë°€ë²ˆí˜¸ ë°˜í™˜
         int password;
         password = card->get_CardBank()->find_account(card->get_acc_number())->get_password();
         return password;
     }
-    void enter_password(Card* card) { // ºñ¹Ğ¹øÈ£ ÀÔ·Â È­¸é
+    void enter_password(Card* card) { // ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ í™”ë©´
         int password;
         int wrong_time = 0;
         string etp = "Enter the password: ";
         string Ip = "Invalid password";
         string Ttw = "Three time wrong";
         string Fa = "Find account";
-        string etp_k = "ºñ¹ø ÀÔ·Â: ";
-        string Ip_k = "Æ²¸° ºñ¹ø";
-        string Ttw_k = "¼¼ ¹ø Àß¸ø ÀÔ·Â";
-        string Fa_k = "°èÁÂ¸¦ Ã£¾Ò½À´Ï´Ù";
+        string etp_k = "ë¹„ë²ˆ ì…ë ¥: ";
+        string Ip_k = "í‹€ë¦° ë¹„ë²ˆ";
+        string Ttw_k = "ì„¸ ë²ˆ ì˜ëª» ì…ë ¥";
+        string Fa_k = "ê³„ì¢Œë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤";
         string ep[4];
 
         if (lang_type == "2") {
@@ -230,7 +230,7 @@ public:
             mainstage(acc);
         }
     }
-    void deposit(Account* acc) { // ¿¹±İ ¹æ¹ı ¼±ÅÃ
+    void deposit(Account* acc) { // ì˜ˆê¸ˆ ë°©ë²• ì„ íƒ
         cout << "1. Cash" << endl;
         cout << "2. Check" << endl;
         cout << "3. Menu" << endl;
@@ -339,7 +339,7 @@ public:
             }
         }
     }
-    void withdrawal(Account* acc) { // Ãâ±İ
+    void withdrawal(Account* acc) { // ì¶œê¸ˆ
         int num_50000, num_10000, num_5000, num_1000;
         cout << "Withdraw cash" << endl;
         cout << "Insert Cash" << endl;
@@ -409,7 +409,7 @@ public:
             return;
         }
     };
-    void transfer(Account* acc) { // ¼Û±İ
+    void transfer(Account* acc) { // ì†¡ê¸ˆ
         int transfer_type;
         cout << "Choose transfer type" << endl;
         cout << "1. Cash transfer" << endl;
@@ -538,7 +538,7 @@ int main() {
     Bank* daegubank = new Bank("daegu");
     ATM* atm2 = new ATM(daegubank, 22222222, "Multi", "Bi", 100, 100, 100, 100);
     
-    Bank* admin = new Bank("admin");  //ÀÏ´Ü ÀÓ½Ã·Î ÀÌ·¸°Ô ÇØ³õÀ½. ³»ÀÏ ¾ê±âÇØº¾½Ã´Ù.
+    Bank* admin = new Bank("admin");  //ì¼ë‹¨ ì„ì‹œë¡œ ì´ë ‡ê²Œ í•´ë†“ìŒ. ë‚´ì¼ ì–˜ê¸°í•´ë´…ì‹œë‹¤.
     Card* ad_card = new Card(1111, admin, 2222, "admin");
 
     atm1->start_ATM(card1);
